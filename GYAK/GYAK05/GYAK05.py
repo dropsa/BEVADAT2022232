@@ -45,16 +45,3 @@ class KNNClassifier:
     def plot_confusion_matrix(self):
         conf_matrix = confusion_matrix(self.y_test,self.y_preds)
         sns.heatmap(conf_matrix,annot=True) 
-    
-    def predict(self,x_test:np.ndarray,k:int) -> np.ndarray:
-        labels_pred = []
-        for x_test_element in x_test:
-            distances = self.euclidean(self.x_train,x_test_element)
-            distances = np.array(sorted(zip(distances,self.y_train)))
-            label_pred = mode(distances[:k,1],keepdims=False).mode
-            labels_pred.append(label_pred)
-        self.y_preds = np.array(labels_pred,dtype=np.int32)
-    
-    def accuracy(self) -> float:
-        true_positive = (self.y_test == self.y_preds).sum()
-        return true_positive / len(self.y_test) * 100
