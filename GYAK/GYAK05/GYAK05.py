@@ -5,9 +5,21 @@ from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
 
 class KNNClassifier:
-    def __init__(self,k:int,test_split_ratio:int):
+    def __init__(self,k:int,test_split_ratio:float):
         self.k = k
         self.test_split_ratio = test_split_ratio
+        
+    @property
+    def k_neighbors(self):
+        return self.k
+
+    @staticmethod
+    def load_csv(csv_path: str) -> Tuple[np.ndarray, np.ndarray]:
+        np.random.seed(42)
+        dataset = np.genfromtxt(csv_path, delimiter=',')
+        np.random.shuffle(dataset)
+        x, y = dataset[:, :4], dataset[:, -1]
+        return x, y   
 
     def load_csv(csv_path:str) ->Tuple[np.ndarray,np.ndarray]:
         np.random.seed(42)
