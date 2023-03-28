@@ -20,13 +20,6 @@ class KNNClassifier:
         np.random.shuffle(dataset)
         x, y = dataset[:, :4], dataset[:, -1]
         return x, y   
-
-    def load_csv(csv_path:str) ->Tuple[np.ndarray,np.ndarray]:
-        np.random.seed(42)
-        dataset = np.genfromtxt(csv_path,delimiter=',')
-        np.random.shuffle(dataset,)
-        x,y = dataset[:,:4],dataset[:,-1]
-        return x,y
     
     def train_test_split(self,
                         features:np.ndarray,
